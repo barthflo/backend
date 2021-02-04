@@ -12,6 +12,24 @@ router.get('/', (req, res) => {
   });
 });
 
+router.get('/with-pic', (req, res) => {
+    const sql = "SELECT group_concat(a.id) AS id,group_concat(a.description) AS description ,p.name, p.alt FROM about a LEFT JOIN pictures p ON a.picture_id=p.id";
+    db.query(sql, (err, results) => {
+      if (err) {
+        res.status(500).send({errorMessage: err.message});
+      } else {
+        results.map(result => {
+            if (result.id || result.description){
+                result.id = result.id.split(',');
+                result.description = result.description.split(',');
+            }
+            return result;
+        })
+        res.status(200).json(results);
+      }
+    });
+  });
+
 router.get('/:id', (req, res) => {
     const sql = "SELECT * FROM about WHERE id=?";
     db.query(sql, [req.params.id], (err, results) => {
