@@ -2,7 +2,7 @@ const db = require('../db_connection');
 const router = require('express').Router();
 
 router.get('/', (req, res) => {
-  const sql = "SELECT * FROM admins";
+  const sql = "SELECT * FROM categories";
   db.query(sql, (err, results) => {
     if (err) {
       res.status(500).send({errorMessage: err.message});
@@ -13,18 +13,18 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  const sql = "SELECT * FROM admins WHERE id=?";
-  db.query(sql, [req.params.id], (err, results) => {
-    if (err) {
-      res.status(500).send({errorMessage: err.message});
-    } else {
-      res.status(200).json(results);
-    }
+    const sql = "SELECT * FROM categories WHERE id=?";
+    db.query(sql, [req.params.id], (err, results) => {
+      if (err) {
+        res.status(500).send({errorMessage: err.message});
+      } else {
+        res.status(200).json(results);
+      }
+    });
   });
-});
 
 router.post('/', (req, res) => {
-  const sql = "INSERT INTO admins SET ?";
+  const sql = "INSERT INTO categories SET ?";
   db.query(sql, req.body, (err, results) => {
     if (err) {
       res.status(500).send({errorMessage: err.message});
@@ -35,12 +35,12 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  let sql = "UPDATE admins SET ? WHERE id=?";
+  let sql = "UPDATE categories SET ? WHERE id=?";
   db.query(sql, [req.body, req.params.id], (err, results) => {
     if (err) {
       res.status(500).send({errorMessage: err.message});
     } else {
-      sql = "SELECT * FROM admins WHERE id=?";
+      sql = "SELECT * FROM categories WHERE id=?";
       db.query(sql, req.params.id, (err, result) => {
         if (result.length === 0) {
           res.status(404).send({errorMessage: `Admin with id ${req.params.id} not found`});
@@ -53,7 +53,7 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  const sql = "DELETE FROM admins WHERE id=?";
+  const sql = "DELETE FROM categories WHERE id=?";
   db.query(sql, req.params.id, (err, results) => {
     if (err) {
       res.status(500).send({errorMessage: err.message});

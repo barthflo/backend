@@ -2,7 +2,7 @@ const db = require('../db_connection');
 const router = require('express').Router();
 
 router.get('/', (req, res) => {
-  const sql = "SELECT * FROM admins";
+  const sql = "SELECT * FROM social_media";
   db.query(sql, (err, results) => {
     if (err) {
       res.status(500).send({errorMessage: err.message});
@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  const sql = "SELECT * FROM admins WHERE id=?";
+  const sql = "SELECT * FROM social_media WHERE id=?";
   db.query(sql, [req.params.id], (err, results) => {
     if (err) {
       res.status(500).send({errorMessage: err.message});
@@ -24,7 +24,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const sql = "INSERT INTO admins SET ?";
+  const sql = "INSERT INTO social_media SET ?";
   db.query(sql, req.body, (err, results) => {
     if (err) {
       res.status(500).send({errorMessage: err.message});
@@ -35,12 +35,12 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  let sql = "UPDATE admins SET ? WHERE id=?";
+  let sql = "UPDATE social_media SET ? WHERE id=?";
   db.query(sql, [req.body, req.params.id], (err, results) => {
     if (err) {
       res.status(500).send({errorMessage: err.message});
     } else {
-      sql = "SELECT * FROM admins WHERE id=?";
+      sql = "SELECT * FROM social_media WHERE id=?";
       db.query(sql, req.params.id, (err, result) => {
         if (result.length === 0) {
           res.status(404).send({errorMessage: `Admin with id ${req.params.id} not found`});
@@ -53,7 +53,7 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  const sql = "DELETE FROM admins WHERE id=?";
+  const sql = "DELETE FROM social_media WHERE id=?";
   db.query(sql, req.params.id, (err, results) => {
     if (err) {
       res.status(500).send({errorMessage: err.message});
