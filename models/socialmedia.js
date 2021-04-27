@@ -1,35 +1,29 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-	class About extends Model {
+	class SocialMedia extends Model {
 		/**
 		 * Helper method for defining associations.
 		 * This method is not a part of Sequelize lifecycle.
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-			this.belongsTo(models.Picture, {
-				onUpdate: 'CASCADE',
-				onDelete: 'CASCADE',
-				as: 'picture',
-			});
+			// define association here
 		}
 	}
-	About.init(
+	SocialMedia.init(
 		{
-			description: DataTypes.TEXT,
-			pictureId: {
-				type: DataTypes.INTEGER,
-				references: {
-					model: 'Picture',
-					key: 'id',
-				},
-			},
+			name: DataTypes.STRING,
+			linkTo: DataTypes.STRING,
+			image: DataTypes.STRING,
 		},
 		{
+			timestamps: false,
+			freezeTableName: true,
+			tableName: 'SocialMedias',
 			sequelize,
-			modelName: 'About',
+			modelName: 'SocialMedia',
 		},
 	);
-	return About;
+	return SocialMedia;
 };
