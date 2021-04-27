@@ -2,6 +2,8 @@ const router = require('express').Router();
 const projects = require('./project.routes');
 const about = require('./about.routes');
 const storage = require('./storage.routes');
+const contact = require('./contact.routes');
+const auth = require('./auth.routes');
 
 router
 	.get('/', (req, res) => {
@@ -9,6 +11,8 @@ router
 	})
 	.use('/projects', projects)
 	.use('/about', about)
-	.use('/storage', storage);
+	.use('/contact', contact)
+	.use('/storage', storage)
+	.use('/auth', auth);
 
 module.exports = router;
