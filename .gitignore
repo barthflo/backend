@@ -1,3 +1,5 @@
 node_modules
 .env
 schema.sql
+seeders/*
+sequelize-meta.json
