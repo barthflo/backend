@@ -15,6 +15,13 @@ exports.findOne = async (req, res) => {
 			.promise();
 		res.setHeader('Content-Type', object.ContentType);
 		res.setHeader('Content-Length', object.ContentLength);
+		if (object.ContentType === 'application/pdf') {
+			res.setHeader(
+				'Content-Disposition',
+				'attachment; filename=' +
+					req.params.file.normalize('NFD').replace(/[\u0300-\u036f]/g, ''),
+			);
+		}
 		const stream = await s3
 			.getObject({
 				Bucket: process.env.BUCKET,
