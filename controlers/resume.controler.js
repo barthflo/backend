@@ -29,3 +29,17 @@ exports.findAll = async (_req, res) => {
 		res.status(500).json(err.toString());
 	}
 };
+
+exports.findPdf = async (req, res) => {
+	try {
+		const pdf = await db.Pdf.findOne({
+			where: {
+				active: true,
+			},
+		});
+		if (pdf === null) return res.status(404).json('No results');
+		res.json(pdf);
+	} catch (err) {
+		res.status(500).json(err.toString());
+	}
+};
