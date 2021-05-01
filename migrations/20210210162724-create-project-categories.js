@@ -16,9 +16,9 @@ module.exports = {
 						tableName: 'Categories',
 					},
 					key: 'id',
-					onUpdate: 'cascade',
-					onDelete: 'cascade',
 				},
+				onUpdate: 'cascade',
+				onDelete: 'cascade',
 			},
 			projectId: {
 				foreignKey: true,
@@ -28,9 +28,9 @@ module.exports = {
 						tableName: 'Projects',
 					},
 					key: 'id',
-					onUpdate: 'cascade',
-					onDelete: 'cascade',
 				},
+				onUpdate: 'cascade',
+				onDelete: 'cascade',
 			},
 		});
 	},

@@ -6,7 +6,7 @@ const verifyJWT = (req, res, next) => {
 		res.status(401).json('Not authorized');
 		return;
 	}
-	jwt.verify('fake', process.env.JWT_SECRET, (err, decoded) => {
+	jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
 		if (err) {
 			res.status(401).json('Verification failed');
 		} else {
