@@ -23,6 +23,11 @@ module.exports = {
 			cardDetailedText: {
 				type: Sequelize.TEXT,
 			},
+			published: {
+				type: Sequelize.BOOL,
+				defaultValue: true,
+				allowNull: false,
+			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,

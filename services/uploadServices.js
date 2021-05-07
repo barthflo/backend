@@ -22,9 +22,17 @@ const upload = multer({
 					if (file.mimetype === 'image/jpeg') {
 						if (typeof req.body.filename === 'object') {
 							const filename = req.body.filename.pop();
-							file.name = Date.now() + '-' + filename;
+							file.name =
+								Date.now() +
+								'-' +
+								filename.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 						} else {
-							file.name = Date.now() + '-' + req.body.filename;
+							file.name =
+								Date.now() +
+								'-' +
+								req.body.filename
+									.normalize('NFD')
+									.replace(/[\u0300-\u036f]/g, '');
 						}
 					}
 					cb(null, 'uploads/' + file.name);
@@ -35,7 +43,10 @@ const upload = multer({
 			},
 		],
 		key: function (req, file, cb) {
-			file.name = Date.now() + '-' + file.originalname;
+			file.name =
+				Date.now() +
+				'-' +
+				file.originalname.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 			cb(null, 'uploads/' + file.name);
 		},
 	}),

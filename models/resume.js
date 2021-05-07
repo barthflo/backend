@@ -18,6 +18,11 @@ module.exports = (sequelize, DataTypes) => {
 			cardTitle: DataTypes.STRING(255),
 			cardSubtitle: DataTypes.STRING(1234),
 			cardDetailedText: DataTypes.TEXT,
+			published: {
+				type: DataTypes.BOOLEAN,
+				defaultValue: true,
+				allowNull: false,
+			},
 		},
 		{
 			sequelize,

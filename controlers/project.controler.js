@@ -117,7 +117,6 @@ exports.createCategory = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-	console.log(req.body);
 	const id = parseInt(req.params.id);
 	try {
 		await db.Project.update(req.body, {
