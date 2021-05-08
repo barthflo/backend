@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
 				onDelete: 'CASCADE',
 			});
 			this.hasOne(models.About, {
-				onUpdate: 'cascade',
-				onDelete: 'cascade',
+				onUpdate: 'CASCADE',
+				onDelete: 'CASCADE',
 				foreignKey: 'pictureId',
 			});
 			// this.hasOne(models.About, {onUpdate:'CASCADE', onDelete:'CASCADE', foreignKey: 'id'});

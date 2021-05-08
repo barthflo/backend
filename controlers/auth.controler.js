@@ -18,7 +18,6 @@ exports.login = async (req, res) => {
 				const token = jwt.sign({ user }, process.env.JWT_SECRET, {
 					expiresIn: '24h',
 				});
-
 				if (req.cookies) {
 					res.cookie('accessToken', token, {
 						maxAge: 86400000,

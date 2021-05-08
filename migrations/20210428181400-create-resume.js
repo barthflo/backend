@@ -1,33 +1,32 @@
 'use strict';
 module.exports = {
 	up: async (queryInterface, Sequelize) => {
-		await queryInterface.createTable('Pictures', {
+		await queryInterface.createTable('Resumes', {
 			id: {
 				allowNull: false,
 				autoIncrement: true,
 				primaryKey: true,
 				type: Sequelize.INTEGER,
 			},
-			name: {
-				allowNull: false,
+			start: {
+				type: Sequelize.DATEONLY,
+			},
+			end: {
+				type: Sequelize.DATEONLY,
+			},
+			cardTitle: {
 				type: Sequelize.STRING,
 			},
-			alt: {
-				allowNull: false,
+			cardSubtitle: {
 				type: Sequelize.STRING,
 			},
-			tag: Sequelize.STRING,
-			projectId: {
-				foreignKey: true,
-				type: Sequelize.INTEGER,
-				references: {
-					model: {
-						tableName: 'Projects',
-					},
-					key: 'id',
-				},
-				onUpdate: 'cascade',
-				onDelete: 'cascade',
+			cardDetailedText: {
+				type: Sequelize.TEXT,
+			},
+			published: {
+				type: Sequelize.BOOL,
+				defaultValue: true,
+				allowNull: false,
 			},
 			createdAt: {
 				allowNull: false,
@@ -42,6 +41,6 @@ module.exports = {
 		});
 	},
 	down: async (queryInterface, Sequelize) => {
-		await queryInterface.dropTable('Pictures');
+		await queryInterface.dropTable('Resumes');
 	},
 };
