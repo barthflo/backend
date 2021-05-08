@@ -90,10 +90,10 @@ exports.create = async (req, res) => {
 				alt: file.name
 					.split('-')
 					.splice(1)
-					.join()
+					.join(' ')
 					.split('.')
 					.slice(0, -1)
-					.join(),
+					.join(' '),
 				tag: 'work',
 			};
 		});
@@ -117,6 +117,7 @@ exports.createCategory = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
+	console.log(req.body);
 	const id = parseInt(req.params.id);
 	try {
 		await db.Project.update(req.body, {
@@ -129,7 +130,7 @@ exports.update = async (req, res) => {
 			.map((item) => parseInt(item));
 		project.setCategories(categories);
 
-		if (req.body.picturesToRemove.length > 0) {
+		if (req.body.picturesToRemove && req.body.picturesToRemove.length > 0) {
 			const picturesToRemove = req.body.picturesToRemove
 				.split(',')
 				.map((item) => item);
@@ -139,17 +140,17 @@ exports.update = async (req, res) => {
 			});
 			await deleteMultiple(picturesToRemove.map((picture) => picture));
 		}
-		if (req.files) {
+		if (req.files.length) {
 			const pictures = req.files.map((file) => {
 				return {
 					name: file.name,
 					alt: file.name
 						.split('-')
 						.splice(1)
-						.join()
+						.join(' ')
 						.split('.')
 						.slice(0, -1)
-						.join(),
+						.join(' '),
 					tag: 'work',
 				};
 			});

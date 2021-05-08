@@ -11,24 +11,29 @@ const upload = multer({
 	storage: multerS3({
 		s3,
 		bucket: process.env.BUCKET,
-
 		shouldTransform: function (req, file, cb) {
+			// console.log(file);
 			cb(null, /^image/i.test(file.mimetype));
+			req.body.uid = Date.now();
 		},
 		transforms: [
 			{
 				id: 'resized',
 				key: function (req, file, cb) {
+					if (req.body.filename) {
+						file.id = req.body.filename;
+					}
+
 					if (file.mimetype === 'image/jpeg') {
 						if (typeof req.body.filename === 'object') {
 							const filename = req.body.filename.pop();
 							file.name =
-								Date.now() +
+								req.body.uid +
 								'-' +
 								filename.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 						} else {
 							file.name =
-								Date.now() +
+								req.body.uid +
 								'-' +
 								req.body.filename
 									.normalize('NFD')
@@ -37,7 +42,7 @@ const upload = multer({
 					}
 					cb(null, 'uploads/' + file.name);
 				},
-				transform: function (_req, _file, cb) {
+				transform: function (req, file, cb) {
 					cb(null, sharp().resize(1000).jpeg());
 				},
 			},
